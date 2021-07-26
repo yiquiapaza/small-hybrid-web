@@ -6,13 +6,24 @@ body {
   margin: 0px;
 }
 
-#square {
-  background-color: red;
-  position: relative;
-  width: 50px;
-  height: 50px;
+.flex-column {
+  display: flex;
+  flex-direction: column;
 }
 
+.center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.square {
+  width: 200px;
+  height:200px;
+  margin: 0px;
+  background-color: #7E57C2;
+  transition: transform 300ms ease-out;background-color: red;
+}
 
 .expand {
   transform: scale(2.5);

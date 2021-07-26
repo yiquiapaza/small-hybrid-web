@@ -3,39 +3,33 @@ import Hammer from 'hammerjs';
 
 import '../styles/style.css';
 
-let general = select('body');
+import { sendPostion } from './services';
 
-const square = document.getElementById('square');
+const square = document.querySelector('.square');
 const hammer = new Hammer.Manager(square);
 
-const tap = new Hammer.Tap({
-	taps:1
-})
-hammer.add(tap);
+const Swipe = new Hammer.Swipe();
+let [deltaX, deltaY] = [0, 0];
 
-let [positionX, positionY] = [
-	window.innerWidth,
-	window.innerHeight
-];
+let position = { position_x: 0, position_y: 0 };
 
+let [positionX, positionY] = [window.innerWidth, window.innerHeight];
 
-console.log(general.node().getBoundingClientRect().width);
+sendPostion(position);
 
-let obj = select('#square')
-	.append('svg')
-	.attr('width', positionX)
-	.attr('height', positionY);
+console.log(
+	square.getBoundingClientRect().top,
+	square.getBoundingClientRect().left
+);
 
-obj
-	.append('circle')
-	.attr('cx', positionX / 2)
-	.attr('cy', positionY / 2)
-	.attr('r', 50)
-	.attr('stoke', 'black')
-	.attr('fill', '#69a3b2');
+hammer.add(Swipe);
 
-hammer.on('tap', (event) => {
-	event.target.classList.toggle('expand');
-	console.log('I stay here');
-	console.log(event);
+hammer.on('swipe', (event) => {
+	deltaY = deltaY + event.deltaY;
+	deltaX = deltaX + event.deltaX;
+	position.position_x = +deltaX;
+	position.position_y = +deltaY;
+	sendPostion(position);
+	let translate3d = `translate3d(${deltaX}px, ${deltaY}px, 0)`;
+	event.target.style.transform = translate3d;
 });
