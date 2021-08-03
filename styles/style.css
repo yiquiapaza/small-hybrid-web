@@ -22,7 +22,7 @@ body {
   height:200px;
   margin: 0px;
   background-color: #7E57C2;
-  transition: transform 300ms ease-out;background-color: red;
+  transition: transform 100ms ease-out;background-color: red;
 }
 
 .expand {
